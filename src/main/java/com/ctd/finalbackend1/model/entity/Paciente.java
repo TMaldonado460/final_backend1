@@ -1,5 +1,6 @@
 package com.ctd.finalbackend1.model.entity;
 
+import com.ctd.finalbackend1.model.AEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "paciente")
 @Setter @Getter
-public class Paciente {
+public class Paciente extends AEntity {
 
     @Id
     @GeneratedValue

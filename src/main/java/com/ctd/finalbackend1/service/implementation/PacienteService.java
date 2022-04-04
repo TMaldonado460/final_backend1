@@ -1,9 +1,8 @@
 package com.ctd.finalbackend1.service.implementation;
 
-import com.ctd.finalbackend1.model.PacienteDTO;
+import com.ctd.finalbackend1.model.DTO.PacienteDTO;
 import com.ctd.finalbackend1.model.entity.Paciente;
 import com.ctd.finalbackend1.repository.IPacienteRepository;
-import com.ctd.finalbackend1.service.IPacienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class PacienteService implements IPacienteService {
+public class PacienteService extends AService<Paciente, PacienteDTO, IPacienteRepository> {
 
     private IPacienteRepository repository;
     private ObjectMapper mapper;
@@ -52,18 +51,18 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public void eliminarPaciente(Integer id) {
+    public void eliminar(Integer id) {
         repository.deleteById(id);
     }
 
     @Override
-    public void actualizarPaciente(PacienteDTO pacienteDTO) {
+    public void actualizar(PacienteDTO pacienteDTO) {
         Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
         repository.save(paciente);
     }
 
     @Override
-    public PacienteDTO agregarPaciente(PacienteDTO pacienteDTO) {
+    public PacienteDTO agregar(PacienteDTO pacienteDTO) {
         Paciente paciente = mapper.convertValue(pacienteDTO, Paciente.class);
         Paciente pacienteGuardado = repository.save(paciente);
         return mapper.convertValue(pacienteGuardado, PacienteDTO.class);

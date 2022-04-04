@@ -1,5 +1,6 @@
 package com.ctd.finalbackend1.model.entity;
 
+import com.ctd.finalbackend1.model.AEntity;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "turno")
 @Getter @Setter
-public class Turno {
+public class Turno extends AEntity {
 
     @Id
     @GeneratedValue
