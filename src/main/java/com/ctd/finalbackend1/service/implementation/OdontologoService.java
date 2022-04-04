@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class OdontologoService implements IOdontologoService {
 
     private IOdontologoRepository repository;
-    @Autowired
-    ObjectMapper mapper;
+    private ObjectMapper mapper;
 
 
     @Autowired
@@ -25,12 +25,17 @@ public class OdontologoService implements IOdontologoService {
         this.repository = repository;
     }
 
-
+    @Autowired
+    public void setMapper(ObjectMapper mapper) { this.mapper = mapper; }
 
     @Override
     public OdontologoDTO buscarPorId(Integer id) {
-        Odontologo odontologo = repository.findById(id).get();
-        OdontologoDTO odontologoDTO = mapper.convertValue(odontologo, OdontologoDTO.class);
+        Optional<Odontologo> odontologo = repository.findById(id);
+        OdontologoDTO odontologoDTO = null;
+
+        if(odontologo.isPresent()) {
+            odontologoDTO = mapper.convertValue(odontologo, OdontologoDTO.class);
+        }
         return odontologoDTO;
     }
 
@@ -62,8 +67,7 @@ public class OdontologoService implements IOdontologoService {
     public OdontologoDTO agregarOdontologo(OdontologoDTO odontologoDTO) {
         Odontologo odontologo = mapper.convertValue(odontologoDTO, Odontologo.class);
         Odontologo odontologo1 = repository.save(odontologo);
-        OdontologoDTO odontologoDTO1 = mapper.convertValue(odontologo1, OdontologoDTO.class);
-        return odontologoDTO1;
+        return mapper.convertValue(odontologo1, OdontologoDTO.class);
 
     }
 }

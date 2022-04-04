@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class TurnoService implements ITurnoService {
 
     private ITurnoRepository repository;
-    @Autowired
-    ObjectMapper mapper;
+    private ObjectMapper mapper;
 
 
     @Autowired
@@ -25,11 +25,16 @@ public class TurnoService implements ITurnoService {
         this.repository = repository;
     }
 
+    @Autowired
+    public void setMapper(ObjectMapper mapper) { this.mapper = mapper; }
 
     @Override
     public TurnoDTO buscarPorId(Integer id) {
-        Turno turno = repository.findById(id).get();
-        TurnoDTO turnoDTO = mapper.convertValue(turno, TurnoDTO.class);
+        Optional<Turno> turno = repository.findById(id);
+        TurnoDTO turnoDTO = null;
+        if (turno.isPresent()) {
+            turnoDTO = mapper.convertValue(turno, TurnoDTO.class);
+        }
         return turnoDTO;
     }
 
@@ -60,8 +65,7 @@ public class TurnoService implements ITurnoService {
     public TurnoDTO agregarTurno(TurnoDTO turnoDTO) {
         Turno turno = mapper.convertValue(turnoDTO, Turno.class);
         Turno turnoGuardado = repository.save(turno);
-        TurnoDTO turnoDTOGuardado = mapper.convertValue(turnoGuardado, TurnoDTO.class);
 
-        return turnoDTOGuardado;
+        return mapper.convertValue(turnoGuardado, TurnoDTO.class);
     }
 }

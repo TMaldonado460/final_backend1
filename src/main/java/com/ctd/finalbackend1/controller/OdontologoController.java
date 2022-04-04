@@ -13,8 +13,12 @@ import java.util.Set;
 @RequestMapping("/odontologos")
 public class OdontologoController {
 
+    private IOdontologoService service;
+
     @Autowired
-    IOdontologoService service;
+    public void setService(IOdontologoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<Set<OdontologoDTO>> buscarTodos() {

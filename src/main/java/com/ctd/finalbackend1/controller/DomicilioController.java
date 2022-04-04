@@ -14,8 +14,12 @@ import java.util.Set;
 @RequestMapping("/domicilios")
 public class DomicilioController {
 
+    private DomicilioService service;
+
     @Autowired
-    DomicilioService service;
+    public void setService(DomicilioService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<Set<DomicilioDTO>> buscarTodos() {

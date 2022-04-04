@@ -14,8 +14,12 @@ import java.util.Set;
 @RequestMapping("/pacientes")
 public class PacienteController {
 
+    private PacienteService service;
+
     @Autowired
-    PacienteService service;
+    public void setService(PacienteService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<Set<PacienteDTO>> buscarTodos() {

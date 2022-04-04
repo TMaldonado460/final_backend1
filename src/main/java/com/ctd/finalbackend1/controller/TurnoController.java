@@ -13,8 +13,12 @@ import java.util.Set;
 @RestController
 @RequestMapping("/turnos")
 public class TurnoController {
+    private TurnoService service;
+
     @Autowired
-    TurnoService service;
+    public void setService(TurnoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public ResponseEntity<Set<TurnoDTO>> buscarTodos() {

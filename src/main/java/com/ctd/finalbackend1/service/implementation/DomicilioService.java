@@ -10,14 +10,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class DomicilioService implements IDomicilioService {
 
     private IDomicilioRepository repository;
-    @Autowired
-    ObjectMapper mapper;
+    private ObjectMapper mapper;
 
 
     @Autowired
@@ -25,14 +25,17 @@ public class DomicilioService implements IDomicilioService {
         this.repository = repository;
     }
 
-
+    @Autowired
+    public void setMapper(ObjectMapper mapper) { this.mapper = mapper; }
 
     @Override
     public DomicilioDTO buscarPorId(Integer id) {
-        Domicilio domicilio = repository.findById(id).get();
-        return mapper.convertValue(domicilio, DomicilioDTO.class);
-
-
+        Optional<Domicilio> domicilio = repository.findById(id);
+        DomicilioDTO domicilioDTO = null;
+        if(domicilio.isPresent()) {
+            domicilioDTO = mapper.convertValue(domicilio, DomicilioDTO.class);
+        }
+        return domicilioDTO;
     }
 
     @Override
