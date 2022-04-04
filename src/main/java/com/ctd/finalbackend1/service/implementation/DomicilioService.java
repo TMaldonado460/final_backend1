@@ -3,7 +3,6 @@ package com.ctd.finalbackend1.service.implementation;
 import com.ctd.finalbackend1.model.DomicilioDTO;
 import com.ctd.finalbackend1.model.entity.Domicilio;
 import com.ctd.finalbackend1.repository.IDomicilioRepository;
-import com.ctd.finalbackend1.repository.IOdontologoRepository;
 import com.ctd.finalbackend1.service.IDomicilioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

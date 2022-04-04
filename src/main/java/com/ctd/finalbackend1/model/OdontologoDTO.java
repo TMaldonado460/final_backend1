@@ -1,6 +1,5 @@
 package com.ctd.finalbackend1.model;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.Setter;
 

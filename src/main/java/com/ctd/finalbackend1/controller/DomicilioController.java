@@ -2,9 +2,7 @@ package com.ctd.finalbackend1.controller;
 
 
 import com.ctd.finalbackend1.model.DomicilioDTO;
-import com.ctd.finalbackend1.model.PacienteDTO;
 import com.ctd.finalbackend1.service.implementation.DomicilioService;
-import com.ctd.finalbackend1.service.implementation.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

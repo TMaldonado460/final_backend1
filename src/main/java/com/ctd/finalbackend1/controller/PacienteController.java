@@ -1,6 +1,5 @@
 package com.ctd.finalbackend1.controller;
 
-import com.ctd.finalbackend1.model.OdontologoDTO;
 import com.ctd.finalbackend1.model.PacienteDTO;
 import com.ctd.finalbackend1.service.implementation.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;

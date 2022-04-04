@@ -2,7 +2,6 @@ package com.ctd.finalbackend1.service.implementation;
 
 import com.ctd.finalbackend1.model.TurnoDTO;
 import com.ctd.finalbackend1.model.entity.Turno;
-import com.ctd.finalbackend1.repository.IOdontologoRepository;
 import com.ctd.finalbackend1.repository.ITurnoRepository;
 import com.ctd.finalbackend1.service.ITurnoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @Service
