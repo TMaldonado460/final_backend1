@@ -1,31 +1,32 @@
-package com.ctd.finalbackend1.service.implementation;
+package com.ctd.finalbackend1.service;
 
-import com.ctd.finalbackend1.model.ADTO;
-import com.ctd.finalbackend1.model.AEntity;
-import com.ctd.finalbackend1.service.IService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @Service
+@Getter
 public abstract class AService<Entity, DTO, Repository extends JpaRepository<Entity, Integer>> implements IService<DTO> {
     private Repository repository;
     private ObjectMapper mapper;
 
-    Class<DTO> dtoClazz =  (Class<DTO>) ((ParameterizedType) getClass()
-            .getGenericSuperclass()).getActualTypeArguments()[0];
-    Class<Entity> entityClass =  (Class<Entity>) ((ParameterizedType) getClass()
-            .getGenericSuperclass()).getActualTypeArguments()[0];
+    private Class<DTO> dtoClazz;
+    private Class<Entity> entityClass;
 
+    public void setDtoClazz(Class<DTO> dtoClazz) {
+        this.dtoClazz = dtoClazz;
+    }
 
+    public void setEntityClass(Class<Entity> entityClass) {
+        this.entityClass = entityClass;
+    }
 
     @Autowired
     public void setRepository(Repository repository) {

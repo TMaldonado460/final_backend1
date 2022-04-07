@@ -1,6 +1,5 @@
 package com.ctd.finalbackend1.model.DTO;
 
-
 import com.ctd.finalbackend1.model.ADTO;
 import lombok.Getter;
 import lombok.Setter;

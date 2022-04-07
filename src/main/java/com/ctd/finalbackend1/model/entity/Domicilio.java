@@ -1,6 +1,5 @@
 package com.ctd.finalbackend1.model.entity;
 
-
 import com.ctd.finalbackend1.model.AEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;

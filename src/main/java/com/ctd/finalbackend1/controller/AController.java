@@ -1,6 +1,7 @@
 package com.ctd.finalbackend1.controller;
 
 import com.ctd.finalbackend1.service.IService;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Set;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
+@Getter
 public abstract class AController<Service extends IService<DTO>, DTO> {
 
     private Service service;
