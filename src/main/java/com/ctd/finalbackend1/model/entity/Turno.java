@@ -1,11 +1,14 @@
 package com.ctd.finalbackend1.model.entity;
 
 import com.ctd.finalbackend1.model.AEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "turno")
@@ -13,8 +16,12 @@ import java.util.Date;
 public class Turno extends AEntity {
 
     @Id
-    @GeneratedValue
-    private Integer id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    private UUID id;
     private Date fecha;
 
 

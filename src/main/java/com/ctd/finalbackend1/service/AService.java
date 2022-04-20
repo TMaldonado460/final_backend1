@@ -6,27 +6,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Getter
-public abstract class AService<Entity, DTO, Repository extends JpaRepository<Entity, Integer>> implements IService<DTO> {
+public abstract class AService<Entity, DTO, Repository extends JpaRepository<Entity, UUID>> implements IService<DTO> {
     private Repository repository;
     private ObjectMapper mapper;
 
     private Class<DTO> dtoClazz;
-    private Class<Entity> entityClass;
+    private Class<Entity> entityClazz;
 
+    // necesario, porque tener el tipado de generics tiene sus mañas, me parecio mas facil hacerlo
+    // capaz intentar con @
     public void setDtoClazz(Class<DTO> dtoClazz) {
         this.dtoClazz = dtoClazz;
     }
-
-    public void setEntityClass(Class<Entity> entityClass) {
-        this.entityClass = entityClass;
-    }
+    public void setEntityClazz(Class<Entity> entityClazz) {this.entityClazz = entityClazz;}
 
     @Autowired
     public void setRepository(Repository repository) {
@@ -37,13 +33,13 @@ public abstract class AService<Entity, DTO, Repository extends JpaRepository<Ent
     public void setMapper(ObjectMapper mapper) { this.mapper = mapper; }
 
     @Override
-    public DTO buscarPorId(Integer id) {
+    public Optional<DTO> buscarPorId(UUID id) {
         Optional<Entity> entity = repository.findById(id);
         DTO dto = null;
         if(entity.isPresent()) {
             dto = mapper.convertValue(entity, dtoClazz);
         }
-        return dto;
+        return Optional.of(dto);
     }
 
     @Override
@@ -59,20 +55,20 @@ public abstract class AService<Entity, DTO, Repository extends JpaRepository<Ent
     }
 
     @Override
-    public void eliminar(Integer id) {
+    public void eliminar(UUID id) {
         repository.deleteById(id);
     }
 
     @Override
     public void actualizar(DTO dto) {
-        Entity entity = mapper.convertValue(dto, entityClass);
+        Entity entity = mapper.convertValue(dto, entityClazz);
         repository.save(entity);
     }
 
     @Override
-    public DTO agregar(DTO dto) {
-        Entity entity = mapper.convertValue(dto, entityClass);
-        repository.save(entity);
-        return mapper.convertValue(entity, dtoClazz);
+    public Optional<DTO> agregar(DTO dto) {
+        Entity entity = mapper.convertValue(dto, entityClazz);
+        Entity saved = repository.save(entity);
+        return Optional.of(mapper.convertValue(saved, dtoClazz));
     }
 }

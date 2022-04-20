@@ -6,10 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Getter @Setter
 public class TurnoDTO extends ADTO {
-    private Integer id;
+    private UUID id;
     private Date fecha;
     @JsonIgnoreProperties({"nombre"})
     private OdontologoDTO odontologo;

@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
-public interface ITurnoRepository extends JpaRepository<Turno, Integer> {
+public interface ITurnoRepository extends JpaRepository<Turno, UUID> {
 
     @Query
-    public List<Turno> findAllByPaciente_id(Integer paciente_id);
+    public List<Turno> findAllByPaciente_id(UUID paciente_id);
 
     @Query
-    public List<Turno> findAllByOdontologo_id(Integer odontologo_id);
+    public List<Turno> findAllByOdontologo_id(UUID odontologo_id);
 }

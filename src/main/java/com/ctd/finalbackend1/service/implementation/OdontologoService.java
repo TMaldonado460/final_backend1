@@ -10,6 +10,6 @@ import org.springframework.stereotype.Service;
 public class OdontologoService extends AService<Odontologo, OdontologoDTO, IOdontologoRepository> {
     public OdontologoService() {
         super.setDtoClazz(OdontologoDTO.class);
-        super.setEntityClass(Odontologo.class);
+        super.setEntityClazz(Odontologo.class);
     }
 }
