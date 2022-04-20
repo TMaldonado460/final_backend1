@@ -8,7 +8,7 @@ import org.springframework.context.annotation.*;
 @Profile("test")
 @Configuration
 @PropertySource("classpath:application-test.properties")
-public class TestConfig {
+public class UnitTestConfig {
     @Bean
     @Primary
     public IPacienteRepository pacienteRepository() {

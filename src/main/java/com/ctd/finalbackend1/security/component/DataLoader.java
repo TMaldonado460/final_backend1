@@ -6,11 +6,13 @@ import com.ctd.finalbackend1.security.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
+@Profile("test")
 public class DataLoader implements ApplicationRunner {
 
     private IUserRepository userRepository;
