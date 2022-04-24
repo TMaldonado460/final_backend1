@@ -1,5 +1,6 @@
 package com.ctd.finalbackend1.security.entity;
 
+import com.ctd.finalbackend1.model.entity.Paciente;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
@@ -26,7 +27,11 @@ public class Usuario implements UserDetails {
     private UUID id;
     private String username;
     private String password;
-
+    /*
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
+     */
     @Enumerated(EnumType.STRING)
     private UserRoles roles;
 

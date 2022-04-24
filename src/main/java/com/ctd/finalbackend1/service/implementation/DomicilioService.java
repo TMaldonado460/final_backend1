@@ -22,6 +22,11 @@ public class DomicilioService {
         this.mapper = mapper;
     }
 
+    /**
+    * saves a DomicilioDTO into the repository
+     * @param domicilioDTO
+     * @return DomicilioDTO saved (with id) inside an Optional wrapper
+     *  */
     public Optional<DomicilioDTO> guardar(DomicilioDTO domicilioDTO) {
         Domicilio domicilio = mapper.convertValue(domicilioDTO, Domicilio.class);
         Domicilio domicilioGuardado = repository.save(domicilio);

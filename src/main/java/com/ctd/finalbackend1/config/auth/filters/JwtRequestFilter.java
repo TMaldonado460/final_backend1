@@ -1,6 +1,7 @@
-package com.ctd.finalbackend1.security.component;
+package com.ctd.finalbackend1.config.auth.filters;
 
 import com.ctd.finalbackend1.security.UserDetailsServiceImpl;
+import com.ctd.finalbackend1.security.components.JwtUtil;
 import com.ctd.finalbackend1.security.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

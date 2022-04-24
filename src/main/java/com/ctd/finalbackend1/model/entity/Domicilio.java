@@ -29,6 +29,7 @@ public class Domicilio extends AEntity {
     private String numero;
     private String localidad;
     private String provincia;
+    private boolean principal;
 
     // private String paciente_id;
     @ManyToOne

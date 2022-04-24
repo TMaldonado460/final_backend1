@@ -1,5 +1,7 @@
 package com.ctd.finalbackend1.controller;
 
+import com.ctd.finalbackend1.exceptions.ResourceNotFoundException;
+import com.ctd.finalbackend1.exceptions.TurnoWithDateAlreadyPersisted;
 import com.ctd.finalbackend1.model.ADTO;
 import com.ctd.finalbackend1.service.IService;
 import lombok.Getter;
@@ -15,6 +17,23 @@ import java.util.UUID;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @Getter
+/**
+ * Clase abstracta de controller usando rest
+ * recibe por parametro un servicio y una entidad DTO,
+ * servicio extendiendo IService y DTO extendiendo ADTO
+ * GET:
+ *          /
+ *          /{id}
+ *
+ * POST:
+ *          /
+ *
+ * PUT:
+ *          /
+ *
+ * DELETE:
+ *          /{id}
+ */
 public abstract class AController<Service extends IService<DTO>, DTO extends ADTO> {
 
     // poner todo en una clase abstracta es buena practica?
@@ -41,7 +60,7 @@ public abstract class AController<Service extends IService<DTO>, DTO extends ADT
     }
 
     @PostMapping
-    public ResponseEntity<Optional<DTO>> crear(@RequestBody DTO dto) {
+    public ResponseEntity<Optional<DTO>> crear(@RequestBody DTO dto) throws TurnoWithDateAlreadyPersisted {
         if (dto.getId() != null) {
             return ResponseEntity.badRequest().build();
         }
@@ -60,7 +79,7 @@ public abstract class AController<Service extends IService<DTO>, DTO extends ADT
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrar(@PathVariable UUID id) {
+    public ResponseEntity<?> borrar(@PathVariable UUID id) throws ResourceNotFoundException {
         if (service.buscarPorId(id).isEmpty()) {
             return ResponseEntity.notFound().build();
         }

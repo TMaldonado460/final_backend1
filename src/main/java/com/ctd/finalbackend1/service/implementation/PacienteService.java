@@ -22,7 +22,14 @@ public class PacienteService extends AService<Paciente, PacienteDTO, IPacienteRe
     }
 
     // necesario override para agregarle el paciente a los domicilios (paciente <-> domicilio) es bidireccional
+
     @Override
+    /**
+     * saves a paciente and its domicilios in the database
+     * gives all domicilio inside domicilios the paciente
+     * @param pacienteDTO
+     * @return pacienteDTO with the id of the paciente and the domicilios all persisted
+     * */
     public Optional<PacienteDTO> agregar(PacienteDTO dto) {
         Paciente paciente = super.getMapper().convertValue(dto, Paciente.class);
         if (dto.getDomicilios() != null) {

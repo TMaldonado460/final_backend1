@@ -1,4 +1,4 @@
-package com.ctd.finalbackend1.security.component;
+package com.ctd.finalbackend1.security.components;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Component
 public class JwtUtil {
-    private String SECRET_KEY = "secret";
+    private final String SECRET_KEY = "secret";
 
     public String extractUsername(String token) {
         return extractClaimUsername(token);

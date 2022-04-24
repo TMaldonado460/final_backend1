@@ -1,4 +1,4 @@
-package com.ctd.finalbackend1.unittests.tests;
+package com.ctd.finalbackend1.unittests.tests.service;
 
 import com.ctd.finalbackend1.model.DTO.DomicilioDTO;
 import com.ctd.finalbackend1.model.DTO.PacienteDTO;
@@ -20,7 +20,7 @@ import java.util.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.MOCK)
-@ActiveProfiles("test")
+@ActiveProfiles("unit_test_service")
 public class PacienteServiceTest {
     @Autowired
     PacienteService pacienteService;
@@ -29,58 +29,20 @@ public class PacienteServiceTest {
 
     @Test
     public void añadirNuevoPaciente() {
-        Paciente paciente = new Paciente();
-        paciente.setNombre("Juan");
-        Mockito.when(pacienteRepository.save(Mockito.any(Paciente.class))).thenReturn(paciente);
+        UUID id = new UUID(0,0);
+
+        Mockito.when(pacienteRepository.save(Mockito.any(Paciente.class))).thenAnswer(invocation -> {
+            Paciente paciente = invocation.getArgument(0);
+            paciente.setId(id);
+            return paciente;
+        });
 
         PacienteDTO pacienteDTO = new PacienteDTO();
         pacienteDTO.setNombre("Juan");
         Optional<PacienteDTO> pacienteDTO1 = pacienteService.agregar(pacienteDTO);
 
-        assert(pacienteDTO1.isPresent());
-        assert(pacienteDTO1.get().getNombre().equals("Juan"));
-    }
-
-    @Test
-    public void borrarPacienteConId() {
-        pacienteService.eliminar(new UUID(0,0));
-        Mockito.verify(pacienteRepository, Mockito.times(1)).deleteById(Mockito.any(UUID.class));
-    }
-
-
-
-    @Test
-    public void getAllPatients() {
-        Mockito.when(pacienteRepository.findAll()).thenReturn(new ArrayList<Paciente>());
-
-        assert(pacienteService.buscarTodos().isEmpty());
-        assert(pacienteService.buscarTodos().getClass().equals(HashSet.class));
-    }
-
-    @Test
-    public void actualizarPacienteTest() {
-        PacienteDTO pacienteDTO = new PacienteDTO();
-        pacienteDTO.setNombre("Juan");
-
-        pacienteService.actualizar(pacienteDTO);
-
         Mockito.verify(pacienteRepository, Mockito.times(1)).save(Mockito.any(Paciente.class));
-    }
-
-    @Test
-    public void buscarPorIdTest() {
-        PacienteDTO pacienteDTO = new PacienteDTO();
-        pacienteDTO.setNombre("Juan");
-        pacienteDTO.setId(new UUID(0,0));
-
-        Paciente paciente = new Paciente();
-        paciente.setNombre("Juan");
-        paciente.setId(new UUID(0,0));
-
-        Mockito.when(pacienteRepository.findById(Mockito.any(UUID.class))).thenReturn(Optional.of(paciente));
-
-        assert(pacienteService.buscarPorId(new UUID(0,0)).isPresent());
-        assert(pacienteService.buscarPorId(new UUID(0,0)).get().getNombre().equals("Juan"));
+        assert(pacienteDTO1.get().getId().equals(id));
     }
 
     @Test

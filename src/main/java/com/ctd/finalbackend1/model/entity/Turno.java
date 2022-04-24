@@ -25,10 +25,10 @@ public class Turno extends AEntity {
     private Date fecha;
 
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "odontologo_id")
     private Odontologo odontologo;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
 }

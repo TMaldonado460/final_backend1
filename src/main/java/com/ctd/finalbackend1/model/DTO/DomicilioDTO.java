@@ -16,9 +16,8 @@ public class DomicilioDTO extends ADTO {
     private String numero;
     private String localidad;
     private String provincia;
+    private Boolean principal;
 
     @JsonIncludeProperties({"id"})
     private PacienteDTO paciente;
-
-
 }

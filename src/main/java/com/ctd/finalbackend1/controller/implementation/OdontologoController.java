@@ -7,4 +7,5 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/odontologos")
+@CrossOrigin("http://localhost:3000")
 public class OdontologoController extends AController<IService<OdontologoDTO>, OdontologoDTO> { }
